@@ -36,4 +36,9 @@ public class GridCell : MonoBehaviour
     {
     	color = gameColor;
     }
+
+    public void SetWhite()
+    {
+    	color = Color.white;
+    }
 }

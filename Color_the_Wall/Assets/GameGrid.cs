@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class GameGrid : MonoBehaviour
 {
-	private GameObject screen;
+	public static GameObject screen;
 	public int xSize {get; private set;}
 	public int ySize {get; private set;}
 	public float CellSize {get; private set;}
@@ -36,11 +36,28 @@ public class GameGrid : MonoBehaviour
 	}
 
 	void Awake()
-	{	
+	{	/*
 		screen = new GameObject("Screen");
 		screen.AddComponent<GameGrid>();
 		screen.AddComponent<MeshFilter>();
 		screen.AddComponent<MeshRenderer>();
+		*/
+		/*
+		xSize = ySize = 10;
+		CellSize = 0.1f;
+		isSymmetric = false;*/
+		Debug.Log("Awaken Grid");
+		/*
+		GenerateGrid();
+		Debug.Log("Grid Generated");*/
+		screen = GameObject.Find("GameObject");
+		Debug.Log("Link made Awake");
+		Debug.Log($"{screen == null}");
+		/*
+		DrawGrid();
+		Debug.Log("Awake end");
+		*/
+
 	}
 
 	private int GetDirection(bool isX, Directions directionName)
@@ -98,7 +115,31 @@ public class GameGrid : MonoBehaviour
 				return Color.magenta;
 		};
 	}
+/*
+	private GameProvider.PlayColors GetColor(Color colorName)
+	{
+		switch(colorName)
+		{
+			case Color.grey:
+				return GameProvider.PlayColors.GRAY;
 
+			case Color.yellow:
+				return GameProvider.PlayColors.YELLOW;
+
+			case Color.red:
+				return GameProvider.PlayColors.RED;
+
+			case Color.blue:
+				return GameProvider.PlayColors.BLUE;
+
+			case Color.green:
+				return GameProvider.PlayColors.GREEN;
+
+			default: //case PlayColors.MAGENTA:
+				return GameProvider.PlayColors.MAGENTA;
+		};
+	}
+*/
 	private GameProvider.PlayColors GeneratePlayColor()
 	{
 		if (Randomizer == null)
@@ -201,15 +242,43 @@ public class GameGrid : MonoBehaviour
 
     private void MakeSymmetric()
     {
-    	int yCenter = ySize / 2;
     	int xCenter = xSize / 2;
-    	for (int y = 0; y <= yCenter; y++)
+    	for (int y = 0; y < ySize; y++)
 		{
-			for (int x = 0; x <= xCenter / 2; x++)
+			for (int x = 0; x <= xCenter; x++)
 			{
-				GamePlate[y, x].SetColor(GamePlate[ySize - y, xSize - x].color);
+				GamePlate[y, x].SetColor(InvertPlayColor(GamePlate[ySize - y - 1, xSize - x - 1].color));
+				Debug.Log($"{GamePlate[y, x].color}, x/y {x}/{y}");
 			}
 		}
+    }
+
+    private Color InvertPlayColor(Color color)
+    {
+    	if (color == Color.grey)
+    	{
+    		return Color.magenta;
+    	}
+    	else if (color == Color.yellow)
+    	{
+    		return Color.green;
+    	}
+    	else if (color == Color.red)
+    	{
+    		return Color.blue;
+    	}
+    	else if (color == Color.blue)
+    	{
+    		return Color.red;
+    	}
+    	else if (color == Color.green)
+    	{
+    		return Color.yellow;
+    	}
+    	else
+    	{
+    		return Color.grey;
+    	}
     }
 
     private void GenerateGrid()
@@ -226,13 +295,31 @@ public class GameGrid : MonoBehaviour
 		FixColors();
 		if (isSymmetric)
 		{
+			Debug.Log("Making symmetric");
 			MakeSymmetric();
 		}
+		/*
+		for (int y = 0; y <= ySize; y++)
+		{
+			for (int x = 0; x < xSize; x++)
+			{
+				if (x % 5 == 0 || y % 5 == 0)
+				{
+					GamePlate[y, x].SetWhite();
+				}
+			}
+		}
+
+		foreach (GameProvider.PlayColors currentColor in GameProvider.PlayColors.GetValues(typeof(GameProvider.PlayColors)))
+    	{
+    		Debug.Log($"{currentColor}: {GetColor(currentColor)}");
+    	}
+    	*/
 
 
 		vertices = new Vector3[xSize * ySize * 4];
 		uv = new Vector2[vertices.Length];
-		//Debug.Log(vertices.Length);
+		Debug.Log(vertices.Length);
 		for (int i = 0, y = 0; y < ySize; y++)
 		{
 			for (int x = 0; x < xSize; x++, i += 4)
@@ -257,13 +344,25 @@ public class GameGrid : MonoBehaviour
 		//var link = GameObject.FindWithTag("Player");
 		//link.AddComponent()
 		//Debug.Log($"{link.name}");
-		screen.GetComponent<MeshFilter>().mesh = new Mesh();
-		return;
+		//var link = GetComponent<MeshFilter>().mesh/* = new Mesh()*/;
+		if (screen == null)
+		{
+			Debug.Log("It is null");
+			return;
+		}
+		else
+		{
+			Debug.Log("Not null");
+			Debug.Log($"{screen.name}");
+			screen.GetComponent<MeshFilter>().mesh = mesh = new Mesh();
+			//Debug.Long($"{screen.name}");
+		}
+		//return;
 		mesh.name = "Procedural Grid";
 		Debug.Log(vertices.Length);
 		mesh.vertices = vertices;
 		mesh.uv = uv;
-		return;
+		//return;
 
 
 		int[] triangles = new int[xSize * ySize * 6];

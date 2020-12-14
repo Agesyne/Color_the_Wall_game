@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//static GameObject screen;
+
+
 public class Menu : MonoBehaviour
 {
 	
@@ -11,10 +14,17 @@ public class Menu : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-		Debug.Log("Awaken");
+		Debug.Log("Awaken Menu");
+        //GameProvider newGame = new GameProvider(gameFieldSize, gameFieldType, gameType);
+    }
+
+    void Start()
+    {
+		Debug.Log("Start Menu");
         GameProvider newGame = new GameProvider(gameFieldSize, gameFieldType, gameType);
     }
 
+	/*
     // Update is called once per frame
     void Update()
     {
@@ -25,4 +35,5 @@ public class Menu : MonoBehaviour
         	i++;
         }
     }
+    */
 }

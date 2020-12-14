@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameProvider : MonoBehaviour
 {
+    //public GameObject screen;
     public GameGrid GameField {get; private set;}
     private bool isFirstPlayerTurn = true;
     private IGamer firstGamer;
@@ -79,7 +80,7 @@ public class GameProvider : MonoBehaviour
     {
         Debug.Log("Created GameProvider");
     	GameField = new GameGrid(GetGameFieldSize(true, gameFieldSize), GetGameFieldSize(false, gameFieldSize), gameFieldType == GameFieldType.SIMMETRIC);
-        StartGame(gameType);
+        //StartGame(gameType);
     }
 
 
