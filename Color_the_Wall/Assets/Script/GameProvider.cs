@@ -33,9 +33,9 @@ public class GameProvider : MonoBehaviour
         MAGENTA
     }
 
-    private CameraControls CameraControls;
+    private CameraControlsComponent CameraControlsComponent;
     private GameSceneControls GameSceneControls;
-    private Text FilstPlayerInfoScreen;
+    private Text FirstPlayerInfoScreen;
     private Text SecondPlayerInfoScreen;
     private bool IsFirstPlayerTurn = true;
     private bool IsComputerGamer;
@@ -56,9 +56,9 @@ public class GameProvider : MonoBehaviour
 
     void Start()
     {
-        CameraControls = GameObject.Find("Main Camera").GetComponent<CameraControls>();
+        CameraControlsComponent = GameObject.Find("Main Camera").GetComponent<CameraControlsComponent>();
         GameField = GameObject.Find("GameField").GetComponent<GameGrid>();
-        FilstPlayerInfoScreen = GameObject.Find("FirstPlayerInfo_Text").GetComponent<Text>();
+        FirstPlayerInfoScreen = GameObject.Find("FirstPlayerInfo_Text").GetComponent<Text>();
         SecondPlayerInfoScreen = GameObject.Find("SecondPlayerInfo_Text").GetComponent<Text>();
         GameSceneControls = GameObject.Find("Game_Canvas").GetComponent<GameSceneControls>();
         
@@ -98,7 +98,7 @@ public class GameProvider : MonoBehaviour
     public void GameProviderStart(GameFieldSize gameFieldSize, GameFieldType gameFieldType, GameType gameType)
     {
         GameField.GameGridStart(GetGameFieldSize(true, gameFieldSize), GetGameFieldSize(false, gameFieldSize), gameFieldType == GameFieldType.SIMMETRIC);
-        CameraControls.SetCameraProperties();
+        CameraControlsComponent.SetCameraProperties();
         StartGame(gameType);
     }
 
@@ -121,7 +121,7 @@ public class GameProvider : MonoBehaviour
     private void UpdateScreenStats()
     {
         FieldStatistic = GameField.GetStatistics();
-        FilstPlayerInfoScreen.text = FieldStatistic.FirstPlayerCells.ToString();
+        FirstPlayerInfoScreen.text = FieldStatistic.FirstPlayerCells.ToString();
         SecondPlayerInfoScreen.text = FieldStatistic.SecondPlayerCells.ToString();
     }
 
