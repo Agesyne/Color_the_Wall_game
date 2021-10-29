@@ -33,72 +33,72 @@ public class GameProvider : MonoBehaviour
         MAGENTA
     }
 
-    private CameraControlsComponent CameraControlsComponent;
-    private GameSceneControls GameSceneControls;
-    private Text FirstPlayerInfoScreen;
-    private Text SecondPlayerInfoScreen;
-    private bool IsFirstPlayerTurn = true;
-    private bool IsComputerGamer;
-    private ComputerGamer SecondGamer = new ComputerGamer();
+    private CameraControlsComponent cameraControlsComponent;
+    private GameSceneControls gameSceneControls;
+    private Text firstPlayerInfoScreen;
+    private Text secondPlayerInfoScreen;
+    private bool isFirstPlayerTurn = true;
+    private bool isComputerGamer;
+    private ComputerGamer secondGamer = new ComputerGamer();
 
-    private (int NeutralCells, int FirstPlayerCells, int SecondPlayerCells) FieldStatistic;
-    private (PlayColors FirstPlayerColor, PlayColors SecondPlayerColor) CurrentChosenColors;
+    private (int NeutralCells, int FirstPlayerCells, int SecondPlayerCells) fieldStatistic;
+    private (PlayColors FirstPlayerColor, PlayColors SecondPlayerColor) currentChosenColors;
     private enum GameSizeConstants
     {
-    	LITTLE_X = 23 /*33*/,
-    	LITTLE_Y = 15 /*21*/,
-    	MIDDLE_X = 33 /*65*/,
-    	MIDDLE_Y = 21 /*41*/,
-    	BIG_X = 49 /*97*/,
-    	BIG_Y = 31 /*61*/
+        LITTLE_X = 23 /*33*/,
+        LITTLE_Y = 15 /*21*/,
+        MIDDLE_X = 33 /*65*/,
+        MIDDLE_Y = 21 /*41*/,
+        BIG_X = 49 /*97*/,
+        BIG_Y = 31 /*61*/
     }
 
 
     void Start()
     {
-        CameraControlsComponent = GameObject.Find("Main Camera").GetComponent<CameraControlsComponent>();
+        cameraControlsComponent = GameObject.Find("Main Camera").GetComponent<CameraControlsComponent>();
         GameField = GameObject.Find("GameField").GetComponent<GameGrid>();
-        FirstPlayerInfoScreen = GameObject.Find("FirstPlayerInfo_Text").GetComponent<Text>();
-        SecondPlayerInfoScreen = GameObject.Find("SecondPlayerInfo_Text").GetComponent<Text>();
-        GameSceneControls = GameObject.Find("Game_Canvas").GetComponent<GameSceneControls>();
+        firstPlayerInfoScreen = GameObject.Find("FirstPlayerInfo_Text").GetComponent<Text>();
+        secondPlayerInfoScreen = GameObject.Find("SecondPlayerInfo_Text").GetComponent<Text>();
+        gameSceneControls = GameObject.Find("Game_Canvas").GetComponent<GameSceneControls>();
         
-        GameSceneControls.SetGameProvider(this);
+        gameSceneControls.SetGameProvider(this);
         GameProviderStart(SceneSwitcher.GameFieldSize, SceneSwitcher.GameFieldType, SceneSwitcher.GameType);
     }
 
 
     private int GetGameFieldSize(bool isX, GameFieldSize sizeName)
     {
-    	if (isX)
-    	{
-    		switch(sizeName)
-    		{
-    			case GameFieldSize.LITTLE:
-    				return (int)GameSizeConstants.LITTLE_X;
-    			case GameFieldSize.MIDDLE:
-    				return (int)GameSizeConstants.MIDDLE_X;
-    			default:
-    				return (int)GameSizeConstants.BIG_X;
-    		}
-    	}
-    	else
-    	{
-    		switch(sizeName)
-    		{
-    			case GameFieldSize.LITTLE:
-    				return (int)GameSizeConstants.LITTLE_Y;
-    			case GameFieldSize.MIDDLE:
-    				return (int)GameSizeConstants.MIDDLE_Y;
-    			default:
-    				return (int)GameSizeConstants.BIG_Y;
-    		}
-    	}
+        if (isX)
+        {
+            switch(sizeName)
+            {
+                case GameFieldSize.LITTLE:
+                    return (int)GameSizeConstants.LITTLE_X;
+                case GameFieldSize.MIDDLE:
+                    return (int)GameSizeConstants.MIDDLE_X;
+                default:
+                    return (int)GameSizeConstants.BIG_X;
+            }
+        }
+        else
+        {
+            switch(sizeName)
+            {
+                case GameFieldSize.LITTLE:
+                    return (int)GameSizeConstants.LITTLE_Y;
+                case GameFieldSize.MIDDLE:
+                    return (int)GameSizeConstants.MIDDLE_Y;
+                default:
+                    return (int)GameSizeConstants.BIG_Y;
+            }
+        }
     }
 
     public void GameProviderStart(GameFieldSize gameFieldSize, GameFieldType gameFieldType, GameType gameType)
     {
         GameField.GameGridStart(GetGameFieldSize(true, gameFieldSize), GetGameFieldSize(false, gameFieldSize), gameFieldType == GameFieldType.SIMMETRIC);
-        CameraControlsComponent.SetCameraProperties();
+        cameraControlsComponent.SetCameraProperties();
         StartGame(gameType);
     }
 
@@ -106,45 +106,45 @@ public class GameProvider : MonoBehaviour
 
     private bool IsGameOver()
     {
-        return (Math.Abs(FieldStatistic.FirstPlayerCells - FieldStatistic.SecondPlayerCells) > FieldStatistic.NeutralCells);
+        return (Math.Abs(fieldStatistic.FirstPlayerCells - fieldStatistic.SecondPlayerCells) > fieldStatistic.NeutralCells);
     }
 
     private void StartGame(GameType gameType)
     {
         if (gameType == GameType.VS_COMPUTER)
         {
-            IsComputerGamer = true;
+            isComputerGamer = true;
         }
         MakeFirstGameStep();
     }
 
     private void UpdateScreenStats()
     {
-        FieldStatistic = GameField.GetStatistics();
-        FirstPlayerInfoScreen.text = FieldStatistic.FirstPlayerCells.ToString();
-        SecondPlayerInfoScreen.text = FieldStatistic.SecondPlayerCells.ToString();
+        fieldStatistic = GameField.GetStatistics();
+        firstPlayerInfoScreen.text = fieldStatistic.FirstPlayerCells.ToString();
+        secondPlayerInfoScreen.text = fieldStatistic.SecondPlayerCells.ToString();
     }
 
     public void ShiftUnactivePlayColors(bool isDeactivating = false)
     {
         foreach (PlayColors currentColor in PlayColors.GetValues(typeof(PlayColors)))
         {
-            if (isDeactivating || currentColor == CurrentChosenColors.FirstPlayerColor || currentColor == CurrentChosenColors.SecondPlayerColor)
+            if (isDeactivating || currentColor == currentChosenColors.FirstPlayerColor || currentColor == currentChosenColors.SecondPlayerColor)
             {
-                GameSceneControls.ChangeButtonsActiveByColor(currentColor, false);
+                gameSceneControls.ChangeButtonsActiveByColor(currentColor, false);
             }
             else
             {
-                GameSceneControls.ChangeButtonsActiveByColor(currentColor, true);
+                gameSceneControls.ChangeButtonsActiveByColor(currentColor, true);
             }
         }
     }
 
     private void MakeFirstGameStep()
     {
-        CurrentChosenColors = (PlayColors.GRAY, PlayColors.MAGENTA);
-        CurrentChosenColors.FirstPlayerColor = GameField.MakeFirstStep(IsFirstPlayerTurn);
-        CurrentChosenColors.SecondPlayerColor = GameField.MakeFirstStep(!IsFirstPlayerTurn);
+        currentChosenColors = (PlayColors.GRAY, PlayColors.MAGENTA);
+        currentChosenColors.FirstPlayerColor = GameField.MakeFirstStep(isFirstPlayerTurn);
+        currentChosenColors.SecondPlayerColor = GameField.MakeFirstStep(!isFirstPlayerTurn);
 
         GameField.DrawGrid();
         UpdateScreenStats();
@@ -153,8 +153,8 @@ public class GameProvider : MonoBehaviour
 
     public void EndGame()
     {
-        bool isFirstPlayerWon = (FieldStatistic.FirstPlayerCells > FieldStatistic.SecondPlayerCells) ? true : false;
-        GameSceneControls.EndGameHappened(isFirstPlayerWon);
+        bool isFirstPlayerWon = (fieldStatistic.FirstPlayerCells > fieldStatistic.SecondPlayerCells) ? true : false;
+        gameSceneControls.EndGameHappened(isFirstPlayerWon);
     }
 
     public void MakeGameStep(PlayColors chosenColor)
@@ -164,21 +164,21 @@ public class GameProvider : MonoBehaviour
             return;
         }
 
-        GameField.BFSByColor(chosenColor, IsFirstPlayerTurn);
+        GameField.BFSByColor(chosenColor, isFirstPlayerTurn);
         GameField.DrawGrid();
         UpdateScreenStats();
 
-        if (IsFirstPlayerTurn)
+        if (isFirstPlayerTurn)
         {
-            CurrentChosenColors.FirstPlayerColor = chosenColor;
+            currentChosenColors.FirstPlayerColor = chosenColor;
         } 
         else
         {
-            CurrentChosenColors.SecondPlayerColor = chosenColor;
+            currentChosenColors.SecondPlayerColor = chosenColor;
         }
 
         ShiftUnactivePlayColors();
-        IsFirstPlayerTurn = !IsFirstPlayerTurn;
+        isFirstPlayerTurn = !isFirstPlayerTurn;
 
         if (IsGameOver())
         {
@@ -186,9 +186,9 @@ public class GameProvider : MonoBehaviour
             return;
         }
 
-        if (IsComputerGamer && !IsFirstPlayerTurn)
+        if (isComputerGamer && !isFirstPlayerTurn)
         {
-            chosenColor = SecondGamer.MyTurn(GameField, CurrentChosenColors);
+            chosenColor = secondGamer.MyTurn(GameField, currentChosenColors);
             MakeGameStep(chosenColor);
         }
     }

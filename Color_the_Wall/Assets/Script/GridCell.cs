@@ -12,35 +12,35 @@ public class GridCell : MonoBehaviour
 
     public GridCell()
     {
-    	IsNeutralZone = true;
-    	IsFirstPlayerZone = true;
-    	IsChecked = false;
+        IsNeutralZone = true;
+        IsFirstPlayerZone = true;
+        IsChecked = false;
     }
 
 
-	public void InitializeTransform()
-	{
-    	CellTransform = GetComponent<Transform>();
-	}
+    public void InitializeTransform()
+    {
+        CellTransform = GetComponent<Transform>();
+    }
 
     public void SetPlayerZone(bool isFirstPlayerTurn)
     {
-    	IsNeutralZone = false;
-    	IsFirstPlayerZone = isFirstPlayerTurn;
+        IsNeutralZone = false;
+        IsFirstPlayerZone = isFirstPlayerTurn;
     }
 
     public void SetColor(GameProvider.PlayColors newPlayColor)
     {
-    	Color = newPlayColor;
+        Color = newPlayColor;
     }
 
     public void SetUnchecked()
     {
-    	IsChecked = false;
+        IsChecked = false;
     }
 
     public void SetChecked()
     {
-    	IsChecked = true;
+        IsChecked = true;
     }
 }
