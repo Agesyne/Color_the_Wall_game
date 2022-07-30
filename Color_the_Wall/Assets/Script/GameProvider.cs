@@ -33,7 +33,7 @@ public class GameProvider : MonoBehaviour
         MAGENTA
     }
 
-    private CameraControlsComponent cameraControlsComponent;
+    private CameraControls cameraControlsComponent;
     private GameSceneControls gameSceneControls;
     private Text firstPlayerInfoScreen;
     private Text secondPlayerInfoScreen;
@@ -56,7 +56,7 @@ public class GameProvider : MonoBehaviour
 
     void Start()
     {
-        cameraControlsComponent = GameObject.Find("Main Camera").GetComponent<CameraControlsComponent>();
+        cameraControlsComponent = GameObject.Find("Main Camera").GetComponent<CameraControls>();
         GameField = GameObject.Find("GameField").GetComponent<GameGrid>();
         firstPlayerInfoScreen = GameObject.Find("FirstPlayerInfo_Text").GetComponent<Text>();
         secondPlayerInfoScreen = GameObject.Find("SecondPlayerInfo_Text").GetComponent<Text>();
