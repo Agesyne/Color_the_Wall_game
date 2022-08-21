@@ -21,7 +21,8 @@ public class GameProvider : MonoBehaviour
     public enum GameType
     {
         VS_COMPUTER = 0,
-        VS_PLAYER
+        VS_PLAYER,
+        VS_PLAYER_BY_INTHERNET
     }
     public enum PlayColors
     {

@@ -3,6 +3,7 @@ Library\Bee\artifacts\mvdfrm\Unity.2D.Common.Editor.ref.dll_4C20894B5CB48E48.mvf
 Library\Bee\artifacts\mvdfrm\Unity.2D.Common.Runtime.ref.dll_F7575DE93DDA2363.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.2D.Sprite.Editor.ref.dll_6C8185F9E5AE014E.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.Burst.ref.dll_3835BB91EC2C0D62.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Collections.ref.dll_E35BE511F4283487.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.InternalAPIEditorBridge.001.ref.dll_25F89DC3AAE256B8.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.InternalAPIEngineBridge.001.ref.dll_1873566E0FF13DFD.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.Mathematics.ref.dll_66DE4C1C9A03AD08.mvfrm
@@ -98,10 +99,11 @@ Library\Bee\artifacts\mvdfrm\Unity.Android.Types.dll_866D27E09BC7E7B5.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEditor.Android.Extensions.dll_30EF3C2F534FC917.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEditor.WebGL.Extensions.dll_7854CFB9714FDA11.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEditor.WindowsStandalone.Extensions.dll_BB9734D5E5A0DE81.mvfrm
-Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.dll_EFA6C3393C793007.mvfrm
-Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Mdb.dll_2277B385FACABD04.mvfrm
-Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Pdb.dll_39CA2BF5797FBE87.mvfrm
-Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Rocks.dll_F4F4F5C586B96587.mvfrm
-Library\Bee\artifacts\mvdfrm\Unity.Burst.Unsafe.dll_15E4EF5D971A4F5C.mvfrm
-Library\Bee\artifacts\mvdfrm\Unity.Plastic.Antlr3.Runtime.dll_08A824E947384F99.mvfrm
-Library\Bee\artifacts\mvdfrm\Unity.Plastic.Newtonsoft.Json.dll_F1FF87F9E560738C.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.dll_E7CC1352E18C90DB.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Mdb.dll_0D7C01EC04FDB2D8.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Pdb.dll_24CE7A5B83B2B45B.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Rocks.dll_E4CE967974A61DDB.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Unsafe.dll_5F85255E68E92048.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Plastic.Antlr3.Runtime.dll_C5C1D867E0236E85.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Plastic.Newtonsoft.Json.dll_4E0ADB6681B27FE0.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Collections.LowLevel.ILSupport.dll_47567CF6BC579CBF.mvfrm
